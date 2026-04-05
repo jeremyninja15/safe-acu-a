@@ -31,14 +31,16 @@ if (!FIREBASE_PROJECT_ID || !FIREBASE_CLIENT_EMAIL || !FIREBASE_PRIVATE_KEY || !
 const privateKey = FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
 
 // 🚀 Inicializar Firebase
-admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: FIREBASE_PROJECT_ID,
-    clientEmail: FIREBASE_CLIENT_EMAIL,
-    privateKey: privateKey
-  }),
-  databaseURL: FIREBASE_DATABASE_URL
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: FIREBASE_PROJECT_ID,
+      clientEmail: FIREBASE_CLIENT_EMAIL,
+      privateKey: privateKey
+    }),
+    databaseURL: FIREBASE_DATABASE_URL
+  });
+}
 
 // 🔐 clave simple
 const KEY = ADMIN_KEY;
